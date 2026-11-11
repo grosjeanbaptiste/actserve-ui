@@ -1,0 +1,10 @@
+[application]
+name = "servai-ui"
+
+[web.app]
+title = "Servai Ui"
+
+[bundle]
+identifier = "app.servaiui"
+publisher = "Servai Ui"
+icon = ["assets/icon.png"]
