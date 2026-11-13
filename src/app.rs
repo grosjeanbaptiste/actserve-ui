@@ -24,6 +24,7 @@ pub fn App() -> Element {
             AppShell {
                 items,
                 active: active(),
+                nav_label: "Servai",
                 title: "Servai • Bioxus UI",
                 on_select: move |id| active.set(id),
 
