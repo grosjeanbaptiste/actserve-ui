@@ -57,7 +57,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn renders_the_servai_bioxus_shell() {
+    fn renders_the_actserve_bioxus_shell() {
         let mut dom = VirtualDom::new(App);
         dom.rebuild_in_place();
         let html = dioxus_ssr::render(&dom);

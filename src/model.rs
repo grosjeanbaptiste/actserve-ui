@@ -95,7 +95,7 @@ pub fn mock_domains() -> Vec<DomainItem> {
             expires_in_days: 340,
         },
         DomainItem {
-            name: "servai.io".to_string(),
+            name: "actserve.io".to_string(),
             registrar: "Namecheap".to_string(),
             status: "Active".to_string(),
             auto_renew: true,

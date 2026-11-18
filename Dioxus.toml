@@ -5,6 +5,6 @@ name = "actserve-ui"
 title = "Servai Ui"
 
 [bundle]
-identifier = "app.servaiui"
+identifier = "app.actserveui"
 publisher = "Servai Ui"
 icon = ["assets/icon.png"]
