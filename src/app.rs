@@ -1,7 +1,9 @@
 use bioxus::widgets::{AppShell, NavItem};
 use dioxus::prelude::*;
 
-use crate::views::{DashboardView, DomainsView, EcosystemView, ServersView, WireGuardView};
+use crate::views::{
+    DashboardView, DomainsView, EcosystemView, OrchestrationsView, ServersView, WireGuardView,
+};
 
 #[component]
 pub fn App() -> Element {
@@ -12,6 +14,7 @@ pub fn App() -> Element {
         NavItem::new("servers", "Serveurs").with_icon("🖥️"),
         NavItem::new("domains", "Domaines & DNS").with_icon("🌐"),
         NavItem::new("wireguard", "WireGuard VPN").with_icon("🔒"),
+        NavItem::new("orchestrations", "Orchestrations & Workflows").with_icon("⚡"),
         NavItem::new("ecosystem", "Dépôts & Presets").with_icon("📦"),
     ];
 
@@ -24,8 +27,7 @@ pub fn App() -> Element {
             AppShell {
                 items,
                 active: active(),
-                nav_label: "Servai",
-                title: "Servai • Bioxus UI",
+                title: "ActServe • Bioxus UI",
                 on_select: move |id| active.set(id),
 
                 match active().as_str() {
@@ -37,6 +39,9 @@ pub fn App() -> Element {
                     },
                     "wireguard" => rsx! {
                         WireGuardView {}
+                    },
+                    "orchestrations" => rsx! {
+                        OrchestrationsView {}
                     },
                     "ecosystem" => rsx! {
                         EcosystemView {}
@@ -66,5 +71,15 @@ mod tests {
         assert!(html.contains("Serveurs"));
         assert!(html.contains("WireGuard VPN"));
         assert!(html.contains("Domaines"));
+        assert!(html.contains("Orchestration"));
+    }
+
+    #[test]
+    fn renders_orchestrations_view_directly() {
+        let mut dom = VirtualDom::new(OrchestrationsView);
+        dom.rebuild_in_place();
+        let html = dioxus_ssr::render(&dom);
+        assert!(html.contains("orchestrations-view"));
+        assert!(html.contains("Pipelines de Workflows"));
     }
 }

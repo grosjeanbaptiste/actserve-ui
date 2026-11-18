@@ -204,3 +204,215 @@ pub fn mock_presets() -> Vec<PresetItem> {
         },
     ]
 }
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct WorkflowStepItem {
+    pub name: String,
+    pub action_type: String,
+    pub details: String,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct WorkflowItem {
+    pub id: String,
+    pub name: String,
+    pub description: String,
+    pub steps: Vec<WorkflowStepItem>,
+    pub created_at: String,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct FleetRolloutItem {
+    pub id: String,
+    pub target: String,
+    pub strategy: String, // "Parallel", "Rolling"
+    pub total_servers: usize,
+    pub successful: usize,
+    pub failed: usize,
+    pub status: String,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct ScheduleItem {
+    pub id: String,
+    pub name: String,
+    pub cron_expression: String,
+    pub workflow_id: String,
+    pub target_tag: String,
+    pub enabled: bool,
+    pub last_run: Option<String>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct StepLogItem {
+    pub step_index: usize,
+    pub step_name: String,
+    pub status: String, // "Success", "Failed", "Running"
+    pub duration_ms: u64,
+    pub stdout: String,
+    pub stderr: String,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct JobLogItem {
+    pub job_id: String,
+    pub workflow_name: String,
+    pub server_name: String,
+    pub total_duration_ms: u64,
+    pub status: String,
+    pub steps: Vec<StepLogItem>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct ReconciliationItem {
+    pub server_id: String,
+    pub server_name: String,
+    pub required_packages: Vec<String>,
+    pub missing_packages: Vec<String>,
+    pub domain_bound: bool,
+    pub wireguard_active: bool,
+    pub status: String, // "InSync", "Drifted", "Healing"
+}
+
+pub fn mock_workflows() -> Vec<WorkflowItem> {
+    vec![
+        WorkflowItem {
+            id: "wf-prod-deploy".to_string(),
+            name: "Déploiement Complet Prod Web + SSL".to_string(),
+            description: "Mise à jour DNS A, provision ACME auto-TLS, action systemd reload et healthcheck HTTP".to_string(),
+            steps: vec![
+                WorkflowStepItem {
+                    name: "Upsert DNS A".to_string(),
+                    action_type: "DnsRecordUpsert".to_string(),
+                    details: "A app.bioxus.cloud -> 192.168.1.100".to_string(),
+                },
+                WorkflowStepItem {
+                    name: "Installation Dépendances".to_string(),
+                    action_type: "PackageInstall".to_string(),
+                    details: "caddy-proxy, git".to_string(),
+                },
+                WorkflowStepItem {
+                    name: "Redémarrage Service Caddy".to_string(),
+                    action_type: "ServiceAction".to_string(),
+                    details: "Restart caddy.service".to_string(),
+                },
+                WorkflowStepItem {
+                    name: "Vérification Santé HTTP".to_string(),
+                    action_type: "HttpHealthCheck".to_string(),
+                    details: "GET https://app.bioxus.cloud/health (attendu 200)".to_string(),
+                },
+            ],
+            created_at: "2026-11-18 10:00".to_string(),
+        },
+        WorkflowItem {
+            id: "wf-security-audit".to_string(),
+            name: "Audit Sécurité & Facteurs Système".to_string(),
+            description: "Collecte des facts Ansible, audit UFW et renouvellement certificats WireGuard".to_string(),
+            steps: vec![
+                WorkflowStepItem {
+                    name: "Vérification Règles Pare-feu".to_string(),
+                    action_type: "ShellCommand".to_string(),
+                    details: "ufw status verbose".to_string(),
+                },
+                WorkflowStepItem {
+                    name: "Statut WireGuard".to_string(),
+                    action_type: "ShellCommand".to_string(),
+                    details: "wg show all".to_string(),
+                },
+            ],
+            created_at: "2026-11-18 09:30".to_string(),
+        },
+    ]
+}
+
+pub fn mock_schedules() -> Vec<ScheduleItem> {
+    vec![
+        ScheduleItem {
+            id: "sch-01".to_string(),
+            name: "Audit Sécurité Quotidien".to_string(),
+            cron_expression: "0 2 * * *".to_string(),
+            workflow_id: "wf-security-audit".to_string(),
+            target_tag: "prod".to_string(),
+            enabled: true,
+            last_run: Some("Hier à 02:00".to_string()),
+        },
+        ScheduleItem {
+            id: "sch-02".to_string(),
+            name: "Vérification Dérive & Auto-Healing".to_string(),
+            cron_expression: "*/30 * * * *".to_string(),
+            workflow_id: "wf-prod-deploy".to_string(),
+            target_tag: "web-cluster".to_string(),
+            enabled: true,
+            last_run: Some("Il y a 12 minutes".to_string()),
+        },
+    ]
+}
+
+pub fn mock_reconciliations() -> Vec<ReconciliationItem> {
+    vec![
+        ReconciliationItem {
+            server_id: "srv-01-prod".to_string(),
+            server_name: "gibs-main-node".to_string(),
+            required_packages: vec!["dev-sec-hardening".to_string(), "caddy-proxy".to_string(), "ss-sensor".to_string()],
+            missing_packages: vec![],
+            domain_bound: true,
+            wireguard_active: true,
+            status: "InSync".to_string(),
+        },
+        ReconciliationItem {
+            server_id: "srv-03-lab".to_string(),
+            server_name: "homelab-storage".to_string(),
+            required_packages: vec!["docker-ce".to_string(), "vaultwarden-server".to_string(), "wireguard".to_string()],
+            missing_packages: vec!["vaultwarden-server".to_string()],
+            domain_bound: false,
+            wireguard_active: false,
+            status: "Drifted".to_string(),
+        },
+    ]
+}
+
+pub fn mock_job_logs() -> Vec<JobLogItem> {
+    vec![
+        JobLogItem {
+            job_id: "job-8812a".to_string(),
+            workflow_name: "Déploiement Complet Prod Web + SSL".to_string(),
+            server_name: "gibs-main-node (192.168.1.100)".to_string(),
+            total_duration_ms: 1240,
+            status: "Success".to_string(),
+            steps: vec![
+                StepLogItem {
+                    step_index: 0,
+                    step_name: "Upsert DNS A".to_string(),
+                    status: "Success".to_string(),
+                    duration_ms: 180,
+                    stdout: "Record A app.bioxus.cloud set to 192.168.1.100 with TTL 300\nZone serial incremented".to_string(),
+                    stderr: "".to_string(),
+                },
+                StepLogItem {
+                    step_index: 1,
+                    step_name: "Installation Dépendances".to_string(),
+                    status: "Success".to_string(),
+                    duration_ms: 620,
+                    stdout: "Reading package lists...\nPackage caddy-proxy (v2.8.4) installed and verified".to_string(),
+                    stderr: "".to_string(),
+                },
+                StepLogItem {
+                    step_index: 2,
+                    step_name: "Redémarrage Service Caddy".to_string(),
+                    status: "Success".to_string(),
+                    duration_ms: 210,
+                    stdout: "caddy.service restarted gracefully\nActive: active (running)".to_string(),
+                    stderr: "".to_string(),
+                },
+                StepLogItem {
+                    step_index: 3,
+                    step_name: "Vérification Santé HTTP".to_string(),
+                    status: "Success".to_string(),
+                    duration_ms: 230,
+                    stdout: "HTTP GET https://app.bioxus.cloud/health returned 200 OK (latency: 28ms)".to_string(),
+                    stderr: "".to_string(),
+                },
+            ],
+        },
+    ]
+}
