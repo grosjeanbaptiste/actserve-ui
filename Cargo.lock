@@ -4769,7 +4769,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "servai-ui"
+name = "actserve-ui"
 version = "0.0.0"
 dependencies = [
  "bioxus",

@@ -1,5 +1,5 @@
 [application]
-name = "servai-ui"
+name = "actserve-ui"
 
 [web.app]
 title = "Servai Ui"
