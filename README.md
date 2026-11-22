@@ -1,6 +1,8 @@
-# Servai Ui
+# actserve-ui
 
-A Dioxus app on [bioxus](https://github.com/grosjeanbaptiste/bioxus): one crate for web, desktop, tablet and phone.
+Administration interface of [actserve](../actserve): servers, domains and DNS, WireGuard, orchestrations and workflows, ecosystem presets. A Dioxus app, one crate for web, desktop, tablet and phone.
+
+> **Status (2026-11-22): does not build.** `Cargo.toml` depends on `bioxus` through the path `../bioxus/packages/bioxus`, which does not exist: the library is now [`biorcrux`](https://github.com/grosjeanbaptiste/biorcrux), consumed by git tag. `cargo install` fails with `failed to read .../bioxus/packages/bioxus/Cargo.toml`. The migration (dependency, `bioxus::` imports and stylesheet names, Dioxus on `main`) follows what `actcast` did in commit `b0b5952`; until it is merged, read `bioxus` below as `biorcrux`.
 
 | Run | Command |
 |---|---|
