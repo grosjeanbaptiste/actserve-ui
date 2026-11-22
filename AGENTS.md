@@ -4,5 +4,5 @@ Dioxus app on `bioxus`. Read `CONTEXT.md` first; update it (and its date) after 
 
 - Never write a component, style or helper that `bioxus` could hold: add it to bioxus first, tag it, then bump `tag` in `Cargo.toml`.
 - Layout is `bioxus::widgets::AppShell`; styles are `bioxus::design` tokens, `rem` only, no `px`.
-- Gates: `make ci-local` (format, clippy `-D warnings`, tests). Builds go through `dotfiles heavy run`.
+- Gates: `make ci-local` (format, clippy `-D warnings`, tests). Builds go through `actqueue run`.
 - Every app has an icon: `assets/icon.png`, the BIOXUS one until replaced.
