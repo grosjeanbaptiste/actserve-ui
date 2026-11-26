@@ -1,1 +1,8 @@
-AGENTS.md
+# Servai Ui
+
+Dioxus app on `biorcrux`. Read `CONTEXT.md` first; update it (and its date) after any act that changes the state.
+
+- Never write a component, style or helper that `biorcrux` could hold: add it to biorcrux first, tag it, then bump `tag` in `Cargo.toml`.
+- Layout is `biorcrux::widgets::AppShell`; styles are `biorcrux::design` tokens, `rem` only, no `px`.
+- Gates: `make ci-local` (format, clippy `-D warnings`, tests). Builds go through `actqueue run`.
+- Every app has an icon: `assets/icon.png`, the BIORCRUX one until replaced.
