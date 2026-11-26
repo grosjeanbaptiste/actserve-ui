@@ -2,8 +2,7 @@ use biorcrux::widgets::{Badge, Dialog, InputField, Section, Tone};
 use dioxus::prelude::*;
 
 use crate::model::{
-    mock_job_logs, mock_reconciliations, mock_schedules, mock_workflows,
-    ScheduleItem, WorkflowItem,
+    mock_job_logs, mock_reconciliations, mock_schedules, mock_workflows, ScheduleItem, WorkflowItem,
 };
 
 #[component]
