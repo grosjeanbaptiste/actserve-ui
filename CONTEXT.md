@@ -1,12 +1,14 @@
-# actserve-ui — state as of 2026-11-22
+# actserve-ui — state as of 2026-11-26
 
 ## Current state
 
 - Created from the bioxus template (tag v0.0.6). Web, desktop and mobile features in `Cargo.toml`. `src/app.rs` holds six views (dashboard, servers, domains and DNS, WireGuard, orchestrations, ecosystem); `src/model.rs` the data they show.
-- 2026-11-22 (checked with `actinstall sync`, which printed `failed to read .../bioxus/packages/bioxus/Cargo.toml`): the repository does not build. `Cargo.toml`, `.cargo/config.toml`, `build.rs`, `src/app.rs` and `Cargo.lock` still name `bioxus`, a sibling folder that no longer exists; the library is `biorcrux`. Nothing else was verified (no build, no test run).
+- 2026-11-26: migrated to `biorcrux` v0.0.10 (git tag) and Dioxus `main`, as `actcast` b0b5952 did. `AppShell` now needs `nav_label`. `.cargo/config.toml` is removed: its `[patch]` pointed to the missing `../bioxus` and broke dependency resolution.
+- Checked on a `git archive` export (the worktree sits under the checkout, so cargo read the checkout's `.cargo/config.toml`): `cargo test --all-targets` 7 passed; `cargo clippy --all-targets --all-features -- -D warnings` and `cargo fmt --check` clean.
+- Demo data and test names still say "bioxus" (`bioxus.cloud` domains, `renders_the_actserve_bioxus_shell`): sample strings, not the library.
 
 ## Decisions
 
 ## Waiting on
 
-- Migration to `biorcrux` by tag (own pull request, with a build): the example is `actcast` commit `b0b5952`.
+- `cargo install` through `actinstall sync` after the merge (not yet run on this change).

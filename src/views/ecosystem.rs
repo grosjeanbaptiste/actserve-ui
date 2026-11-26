@@ -1,4 +1,4 @@
-use bioxus::widgets::{Badge, Dialog, Section, Tone};
+use biorcrux::widgets::{Badge, Dialog, Section, Tone};
 use dioxus::prelude::*;
 
 use crate::model::{mock_presets, mock_servers, PresetItem};

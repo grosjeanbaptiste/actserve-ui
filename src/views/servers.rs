@@ -1,4 +1,4 @@
-use bioxus::widgets::{Badge, Dialog, InputField, Section, Tone};
+use biorcrux::widgets::{Badge, Dialog, InputField, Section, Tone};
 use dioxus::prelude::*;
 
 use crate::model::{mock_servers, ServerItem};

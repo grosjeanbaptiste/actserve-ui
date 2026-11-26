@@ -1,4 +1,4 @@
-use bioxus::widgets::{Badge, Dialog, InputField, Section, Stat, Tone};
+use biorcrux::widgets::{Badge, Dialog, InputField, Section, Stat, Tone};
 use dioxus::prelude::*;
 
 use crate::model::{mock_wireguard_peers, WireGuardPeerItem};

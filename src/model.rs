@@ -91,7 +91,10 @@ pub fn mock_domains() -> Vec<DomainItem> {
             registrar: "Cloudflare".to_string(),
             status: "Active".to_string(),
             auto_renew: true,
-            nameservers: vec!["ns1.cloudflare.com".to_string(), "ns2.cloudflare.com".to_string()],
+            nameservers: vec![
+                "ns1.cloudflare.com".to_string(),
+                "ns2.cloudflare.com".to_string(),
+            ],
             expires_in_days: 340,
         },
         DomainItem {
@@ -99,7 +102,10 @@ pub fn mock_domains() -> Vec<DomainItem> {
             registrar: "Namecheap".to_string(),
             status: "Active".to_string(),
             auto_renew: true,
-            nameservers: vec!["dns1.registrar-servers.com".to_string(), "dns2.registrar-servers.com".to_string()],
+            nameservers: vec![
+                "dns1.registrar-servers.com".to_string(),
+                "dns2.registrar-servers.com".to_string(),
+            ],
             expires_in_days: 285,
         },
     ]
@@ -353,7 +359,11 @@ pub fn mock_reconciliations() -> Vec<ReconciliationItem> {
         ReconciliationItem {
             server_id: "srv-01-prod".to_string(),
             server_name: "gibs-main-node".to_string(),
-            required_packages: vec!["dev-sec-hardening".to_string(), "caddy-proxy".to_string(), "ss-sensor".to_string()],
+            required_packages: vec![
+                "dev-sec-hardening".to_string(),
+                "caddy-proxy".to_string(),
+                "ss-sensor".to_string(),
+            ],
             missing_packages: vec![],
             domain_bound: true,
             wireguard_active: true,
@@ -362,7 +372,11 @@ pub fn mock_reconciliations() -> Vec<ReconciliationItem> {
         ReconciliationItem {
             server_id: "srv-03-lab".to_string(),
             server_name: "homelab-storage".to_string(),
-            required_packages: vec!["docker-ce".to_string(), "vaultwarden-server".to_string(), "wireguard".to_string()],
+            required_packages: vec![
+                "docker-ce".to_string(),
+                "vaultwarden-server".to_string(),
+                "wireguard".to_string(),
+            ],
             missing_packages: vec!["vaultwarden-server".to_string()],
             domain_bound: false,
             wireguard_active: false,

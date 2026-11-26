@@ -1,9 +1,0 @@
-[patch."https://github.com/grosjeanbaptiste/bioxus"]
-bioxus = { path = "../bioxus/packages/bioxus" }
-bioxus-design = { path = "../bioxus/packages/bioxus-design" }
-bioxus-widgets = { path = "../bioxus/packages/bioxus-widgets" }
-bioxus-charts = { path = "../bioxus/packages/bioxus-charts" }
-bioxus-locale = { path = "../bioxus/packages/bioxus-locale" }
-bioxus-store = { path = "../bioxus/packages/bioxus-store" }
-bioxus-sync = { path = "../bioxus/packages/bioxus-sync" }
-bioxus-viewer3d = { path = "../bioxus/packages/bioxus-viewer3d" }

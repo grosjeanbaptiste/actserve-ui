@@ -1,5 +1,5 @@
-use bioxus::charts::{Bar, BarChart};
-use bioxus::widgets::{Panel, Section, Stat, Tone};
+use biorcrux::charts::{Bar, BarChart};
+use biorcrux::widgets::{Panel, Section, Stat, Tone};
 use dioxus::prelude::*;
 
 use crate::model::{mock_domains, mock_servers, mock_wireguard_peers};

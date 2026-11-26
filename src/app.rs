@@ -1,4 +1,4 @@
-use bioxus::widgets::{AppShell, NavItem};
+use biorcrux::widgets::{AppShell, NavItem};
 use dioxus::prelude::*;
 
 use crate::views::{
@@ -19,14 +19,15 @@ pub fn App() -> Element {
     ];
 
     rsx! {
-        style { {bioxus::design::STYLESHEET} }
-        style { {bioxus::widgets::STYLESHEET} }
-        style { {bioxus::charts::STYLESHEET} }
+        style { {biorcrux::design::STYLESHEET} }
+        style { {biorcrux::widgets::STYLESHEET} }
+        style { {biorcrux::charts::STYLESHEET} }
 
         div { "data-theme": "ocean", style: "min-height: 100vh; background: var(--bx-bg); color: var(--bx-fg);",
             AppShell {
                 items,
                 active: active(),
+                nav_label: "ActServe",
                 title: "ActServe • Bioxus UI",
                 on_select: move |id| active.set(id),
 
