@@ -153,7 +153,7 @@ pub fn ServersView() -> Element {
                     on_close: move |_| selected_server.set(None),
                     p { "Piloter les services d'administration sur le serveur :" }
                     div { style: "display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;",
-                        for svc in ["ss-sensor", "wireguard", "docker", "caddy"] {
+                        for svc in ["ss-sensor", "wireguard", "podman", "caddy"] {
                             div {
                                 key: "{svc}",
                                 style: "display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: var(--bx-surface); border: 1px solid var(--bx-border); border-radius: 4px;",

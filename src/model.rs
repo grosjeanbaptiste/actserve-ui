@@ -174,10 +174,10 @@ pub fn mock_presets() -> Vec<PresetItem> {
         PresetItem {
             id: "gibs-developer-node".to_string(),
             name: "GIBS Developer Node".to_string(),
-            description: "Hardening Linux + Docker Engine + Dotfiles (GNU Stow) + SS Telemetry Sensor + WireGuard VPN".to_string(),
+            description: "Hardening Linux + Podman rootless + Dotfiles (GNU Stow) + SS Telemetry Sensor + WireGuard VPN".to_string(),
             packages: vec![
                 "dev-sec-hardening".to_string(),
-                "geerlingguy-docker".to_string(),
+                "containers-podman".to_string(),
                 "dotfiles-stow".to_string(),
                 "ss-sensor".to_string(),
                 "linuxserver-wireguard".to_string(),
@@ -198,10 +198,10 @@ pub fn mock_presets() -> Vec<PresetItem> {
         PresetItem {
             id: "homelab-private-cloud".to_string(),
             name: "Homelab Private Cloud".to_string(),
-            description: "Hardening + Docker + WireGuard VPN + Nextcloud stockage privé + Vaultwarden mots de passe".to_string(),
+            description: "Hardening + Podman + WireGuard VPN + Nextcloud stockage privé + Vaultwarden mots de passe".to_string(),
             packages: vec![
                 "dev-sec-hardening".to_string(),
-                "geerlingguy-docker".to_string(),
+                "containers-podman".to_string(),
                 "linuxserver-wireguard".to_string(),
                 "linuxserver-nextcloud".to_string(),
                 "vaultwarden-server".to_string(),
@@ -373,7 +373,7 @@ pub fn mock_reconciliations() -> Vec<ReconciliationItem> {
             server_id: "srv-03-lab".to_string(),
             server_name: "homelab-storage".to_string(),
             required_packages: vec![
-                "docker-ce".to_string(),
+                "containers-podman".to_string(),
                 "vaultwarden-server".to_string(),
                 "wireguard".to_string(),
             ],
